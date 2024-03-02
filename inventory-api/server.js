@@ -1,6 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const db = require("./queries"); // Import database queries
+const {
+  getAllInventory,
+  getInventoryById,
+  createInventoryItem,
+  updateInventoryItem,
+  deleteInventoryItem,
+} = require("./queries"); // Import database queries
 
 const app = express();
 const port = 3000;
@@ -17,11 +23,11 @@ app.get("/", (request, response) => {
 });
 
 // Define routes using imported database query functions
-app.get("/inventory", getAllInventory);
-app.get("/inventory/:id", getInventoryById);
-app.post("/inventory", createInventoryItem);
+app.get("/inventory",  getAllInventory);
+app.get("/inventory/:id",  getInventoryById);
+app.post("/inventory",  createInventoryItem);
 app.put("/inventory/:id", updateInventoryItem);
-app.delete("/inventory/:id", deleteInventoryItem);
+app.delete("/inventory/:id",  deleteInventoryItem);
 
 
 app.listen(port, () => {
