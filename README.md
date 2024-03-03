@@ -6,7 +6,7 @@ inventory-api is a robust inventory management system designed to streamline you
 To get started with inventory-api, follow these steps:
 
 1. Clone the repository to your local machine:
-git clone https://github.com/KezzyNgotho/Backend-Developer-Internship.git
+git clone 
 2.Install dependencies using npm:
   npm install
 Set up your environment variables by creating a .env file in the root directory. Include the following variables:
