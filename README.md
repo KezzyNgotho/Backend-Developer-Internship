@@ -1,4 +1,5 @@
-# inventory-api is a robust inventory management system designed to streamline your business operations.
+# Overview
+inventory-api is a robust inventory management system designed to streamline your business operations.
   With features tailored to meet the needs of small and medium-sized enterprises, this application simplifies inventory tracking and optimizes your supply chain.
 
 ## Setup Instructions
