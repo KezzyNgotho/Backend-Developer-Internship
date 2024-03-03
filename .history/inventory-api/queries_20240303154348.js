@@ -1,27 +1,14 @@
+
 const { Pool } = require("pg");
-const jwt = require('jsonwebtoken');
-
-require('dotenv').config(); // Load environment variables
-
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  user: "postgres",
+  host: "localhost",
+  database: "inventory",
+  password: "1234",
+  port: 5432,
 });
 
-// Middleware to verify JWT token
-const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) return res.status(401).json({ error: 'Unauthorized' });
-    req.user = decoded;
-    next();
-  });
-};
 
 // Function to get all inventory items
 const getAllInventory = async (req, res) => {
@@ -54,9 +41,6 @@ const getInventoryById = async (req, res) => {
 const createInventoryItem = async (req, res) => {
   const { name, price, quantity } = req.body;
   try {
-    if (!name || !price || !quantity) {
-      return res.status(400).json({ error: "Name, price, and quantity are required" });
-    }
     const query = "INSERT INTO inventory (name, price, quantity) VALUES ($1, $2, $3) RETURNING *";
     const { rows } = await pool.query(query, [name, price, quantity]);
     res.status(201).json(rows[0]);
@@ -70,9 +54,6 @@ const updateInventoryItem = async (req, res) => {
   const id = parseInt(req.params.id);
   const { name, price, quantity } = req.body;
   try {
-    if (!name || !price || !quantity) {
-      return res.status(400).json({ error: "Name, price, and quantity are required" });
-    }
     const query = "UPDATE inventory SET name = $1, price = $2, quantity = $3 WHERE id = $4 RETURNING *";
     const { rows } = await pool.query(query, [name, price, quantity, id]);
     if (rows.length > 0) {
@@ -100,6 +81,7 @@ const deleteInventoryItem = async (req, res) => {
 
 //imports
 module.exports = {
+
   getAllInventory,
   getInventoryById,
   createInventoryItem,
